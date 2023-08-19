@@ -1,50 +1,54 @@
 package com.driver.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="Blog")
 public class Blog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Integer blogId;
-
+    private int blogId;
     private String title;
     private String content;
+    @CreationTimestamp
+    private Date publicationDate;
+
     @ManyToOne
     @JoinColumn
     private User user;
+
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
     @JoinColumn
     private List<Image> imageList;
 
-    public Blog(){
-
+    public Blog() {
     }
 
-    public Blog(User user,String title, String content){
-        this.user=user;
-        this.title=title;
-        this.content=content;
+    public Blog(User user, String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
     }
-    public Blog(Integer blogId, String title, String content, User user, List<Image> imageList)
-    {
-        this.user=user;
-        this.title=title;
-        this.content=content;
-        this.imageList=imageList;
-        this.blogId=blogId;
+    public Blog(int blogId, String title, String content, Date publicationDate, User user, List<Image> imageList) {
+        this.blogId = blogId;
+        this.title = title;
+        this.content = content;
+        this.publicationDate = publicationDate;
+        this.user = user;
+        this.imageList = imageList;
     }
 
-    public Integer getBlogId() {
+    public int getId() {
         return blogId;
     }
 
-    public void setBlogId(Integer blogId) {
+    public void setId(int blogId) {
         this.blogId = blogId;
     }
 
@@ -64,6 +68,14 @@ public class Blog {
         this.content = content;
     }
 
+    public Date getPubDate() {
+        return publicationDate;
+    }
+
+    public void setPubDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
     public User getUser() {
         return user;
     }
@@ -75,8 +87,10 @@ public class Blog {
     public List<Image> getImageList() {
         return imageList;
     }
+
     public void setImageList(List<Image> imageList) {
         this.imageList = imageList;
     }
-}
 
+
+}
