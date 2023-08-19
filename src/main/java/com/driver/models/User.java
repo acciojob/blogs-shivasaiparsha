@@ -4,67 +4,60 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="User")
+@Table(name="user")
 public class User{
 
-
     @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-
-
-    private String userName;
-    private String Password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userId;
+    private String username;
+    private String password;
     private String firstName="test";
-    private String lastdName="test";
+    private String lastName="test";
 
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JoinColumn
     private List<Blog> blogList;
-    public User(){
 
+    public User() {
     }
 
-   public User( String userName, String Password)
-   {
-       this.userId=userId;
-       this.userName=userName;
-       this.Password=Password;
-   }
-
-    public User(int userId, String userName, String Password, String firstName, String lastName, List<Blog> blogList) {
-        this.userId=userId;
-        this.userName=userName;
-        this.Password=Password;
-        this.firstName=firstName;
-        this.lastdName=lastName;
-        this.blogList=blogList;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public Integer getUserId() {
+    public User(int userId, String username, String password, String firstName, String lastName, List<Blog> blogList) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.blogList = blogList;
+    }
+
+    public int getId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setId(int userId) {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -75,12 +68,12 @@ public class User{
         this.firstName = firstName;
     }
 
-    public String getLastdName() {
-        return lastdName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastdName(String lastdName) {
-        this.lastdName = lastdName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public List<Blog> getBlogList() {

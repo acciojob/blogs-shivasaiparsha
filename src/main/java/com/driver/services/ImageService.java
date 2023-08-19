@@ -1,6 +1,5 @@
 package com.driver.services;
 
-import com.driver.controller.ImageController;
 import com.driver.models.*;
 import com.driver.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,11 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
-        Blog blog = blogRepository2.findById(blogId).get();
-          Image image = new Image(blog, description, dimensions);
-          blog.getImageList().add(image);
-          blogRepository2.save(blog);
-          return image;
+        Blog blog=blogRepository2.findById(blogId).get();
+        Image image=new Image(blog,description,dimensions);
+        blog.getImageList().add(image);
+        blogRepository2.save(blog);
+        return image;
     }
 
     public void deleteImage(Integer id){
@@ -30,23 +29,24 @@ public class ImageService {
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
-        //Find the number of images of given dimensions
-        // that can fit in a screen having `screenDimensions`
+        //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         Image image=imageRepository2.findById(id).get();
+        String imageDimensions= image.getDimensions();
 
-        String imageDimensions=image.getDimensions();
+        String[] imagearr =imageDimensions.split("X");
+        String[] screenarr =screenDimensions.split("X");
 
-        String imageDim[]=imageDimensions.split("X");
-        String screenDim[]=screenDimensions.split("X");
+        int imageWidth=Integer.parseInt(imagearr[0]);
+        int imageHeight=Integer.parseInt(imagearr[1]);
 
-        int imageWidth=Integer.parseInt(imageDim[0]);
-        int imageHeight=Integer.parseInt(imageDim[1]);
+        int screenWidth=Integer.parseInt(screenarr[0]);
+        int screenHeight=Integer.parseInt(screenarr[1]);
+        return NoOfImagesPossible(imageWidth,imageHeight,screenWidth,screenHeight);
+    }
 
-        int screenWidth=Integer.parseInt(screenDim[0]);
-        int screenHeight=Integer.parseInt(screenDim[1]);
-
-        int w=screenWidth/imageWidth;
-        int h=screenHeight/imageHeight;
-        return w*h;
+    private int NoOfImagesPossible(int imageWidth, int imageHeight, int screenWidth, int screenHeight) {
+        int width=screenWidth/imageWidth;
+        int height=screenHeight/imageHeight;
+        return width*height;
     }
 }

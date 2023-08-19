@@ -1,62 +1,50 @@
 package com.driver.models;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 @Entity
 @Table(name="Image")
 public class Image {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-      private Integer imageId;
+    private int imageId;
+    private String description;
+    private String dimensions;
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn
     private Blog blog;
-   private String descrption;
-   private String dimensions;
 
-   public Image(){
-
-   }
-
-   public Image(Blog blog, String descrption, String dimensions)
-   {
-       this.blog=blog;
-       this.descrption=descrption;
-       this.dimensions=dimensions;
-   }
-
-   public Image(Integer imageId, String descrption, String dimensions, Blog blog){
-       this.imageId=imageId;
-       this.descrption=descrption;
-       this.dimensions=dimensions;
-       this.blog=blog;
-   }
-
-    public Integer getImageId() {
-        return imageId;
+    public Image() {
     }
 
-    public void setImageId(Integer imageId) {
-        this.imageId = imageId;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
+    public Image(Blog blog, String description, String dimensions) {
+        this.description = description;
+        this.dimensions = dimensions;
         this.blog = blog;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public Image(int imageId, String description, String dimensions, Blog blog) {
+        this.imageId = imageId;
+        this.description = description;
+        this.dimensions = dimensions;
+        this.blog = blog;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public int getId() {
+        return imageId;
+    }
+
+    public void setId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDimensions() {
@@ -65,5 +53,13 @@ public class Image {
 
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 }
