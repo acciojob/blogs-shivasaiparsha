@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="Blog")
 public class Blog {
 
     @Id
@@ -75,7 +75,6 @@ public class Blog {
     public List<Image> getImageList() {
         return imageList;
     }
-
     public void setImageList(List<Image> imageList) {
         this.imageList = imageList;
     }

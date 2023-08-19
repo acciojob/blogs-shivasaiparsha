@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="Image")
 public class Image {
 
     @Id
